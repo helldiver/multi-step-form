@@ -5,19 +5,10 @@ import { AgGridReact } from 'ag-grid-react'
 import {
   ColDef,
   GridOptions,
-  SelectionChangedEvent,
-  GridApi,
-  ColumnApi,
-  ModuleRegistry,
-  AllCommunityModule,
+  SelectionChangedEvent
 } from 'ag-grid-community'
 import { useDataTableStore } from '@/store/dataTable'
 import { TableRowData } from '@/types/dataTable'
-
-// 確保模組註冊 (關鍵修正)
-if (typeof window !== 'undefined') {
-  ModuleRegistry.registerModules([AllCommunityModule]);
-}
 
 // AG-Grid CSS
 import 'ag-grid-community/styles/ag-grid.css'
@@ -30,7 +21,7 @@ interface DataTableProps {
 
 export const DataTable: React.FC<DataTableProps> = ({ height = '500px', className = '' }) => {
   const gridRef = useRef<AgGridReact>(null)
-  const { data, selectedRows, isLoading, setSelectedRows, selectAll, deselectAll, isAllSelected } = useDataTableStore()
+  const { data, selectedRows, isLoading, setSelectedRows } = useDataTableStore()
 
   // 列定義
   const columnDefs: ColDef<TableRowData>[] = useMemo(
@@ -69,7 +60,7 @@ export const DataTable: React.FC<DataTableProps> = ({ height = '500px', classNam
         sortable: true,
         filter: true,
         width: 120,
-        cellRenderer: (params: any) => {
+        cellRenderer: (params: { value: keyof typeof statusColors }) => {
           const statusColors = {
             active: 'bg-green-100 text-green-800',
             inactive: 'bg-red-100 text-red-800',
@@ -102,7 +93,7 @@ export const DataTable: React.FC<DataTableProps> = ({ height = '500px', classNam
         sortable: true,
         filter: 'agNumberColumnFilter',
         width: 100,
-        cellRenderer: (params: any) => {
+        cellRenderer: (params: { value: number }) => {
           return params.value?.toLocaleString()
         },
       },
@@ -112,7 +103,7 @@ export const DataTable: React.FC<DataTableProps> = ({ height = '500px', classNam
         sortable: true,
         filter: 'agDateColumnFilter',
         width: 150,
-        cellRenderer: (params: any) => {
+        cellRenderer: (params: { value: string }) => {
           return new Date(params.value).toLocaleDateString('zh-TW')
         },
       },
@@ -122,7 +113,7 @@ export const DataTable: React.FC<DataTableProps> = ({ height = '500px', classNam
         sortable: true,
         filter: 'agDateColumnFilter',
         width: 150,
-        cellRenderer: (params: any) => {
+        cellRenderer: (params: { value: string }) => {
           return new Date(params.value).toLocaleDateString('zh-TW')
         },
       },
@@ -176,8 +167,11 @@ export const DataTable: React.FC<DataTableProps> = ({ height = '500px', classNam
   // 同步選擇狀態
   useEffect(() => {
     if (gridRef.current?.api) {
-      gridRef.current.api.forEachNode((node) => {
-        if (node.data && selectedRows.includes(node.data.id)) {
+      gridRef.current.api.forEachNode((node: {
+        data: { id: string | number } | undefined;
+        setSelected: (selected: boolean, clearSelection: boolean) => void;
+      }) => {
+        if (node.data && selectedRows.includes(String(node.data.id))) {
           node.setSelected(true, false)
         } else {
           node.setSelected(false, false)

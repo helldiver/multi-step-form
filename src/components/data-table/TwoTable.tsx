@@ -2,19 +2,19 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { AgGridReact } from 'ag-grid-react'
-import { ColDef, SelectionChangedEvent, ModuleRegistry, AllCommunityModule } from 'ag-grid-community'
+import { ColDef, SelectionChangedEvent } from 'ag-grid-community'
+import type { RowNode } from 'ag-grid-community'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-alpine.css'
-
-// 確保模組註冊 (關鍵修正)
-if (typeof window !== 'undefined') {
-  ModuleRegistry.registerModules([AllCommunityModule]);
-}
 
 interface Person {
   id: number
   name: string
   phone: string
+}
+
+interface GridParams {
+  data: Person
 }
 
 const TwoTable = () => {
@@ -83,8 +83,8 @@ const TwoTable = () => {
   // 當選取狀態改變時，同步左邊表格的選取狀態
   useEffect(() => {
     if (leftGridRef.current?.api) {
-      leftGridRef.current.api.forEachNode((node) => {
-        const shouldBeSelected = selectedIds.has(node.data.id)
+      leftGridRef.current.api.forEachNode((node: RowNode<Person>) => {
+        const shouldBeSelected: boolean = selectedIds.has(node.data!.id)
         if (node.isSelected() !== shouldBeSelected) {
           node.setSelected(shouldBeSelected, false)
         }
@@ -106,32 +106,32 @@ const TwoTable = () => {
     }
   }, [rightTableData.length])
 
-  return (
+    return (
     <div className='p-6'>
       <h1 className='text-3xl font-bold mb-6'>雙表格同步選取</h1>
 
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-        {/* 左邊表格 */}
+      {/* 左邊表格 */}
         <div>
           <h2 className='text-xl font-semibold mb-3'>來源資料表格</h2>
           <div className='ag-theme-alpine' style={{ height: 400, width: '100%' }}>
-            <AgGridReact
+            <AgGridReact<Person>
               ref={leftGridRef}
               rowData={leftTableData}
               columnDefs={leftColumnDefs}
               rowSelection='multiple'
               suppressRowClickSelection={true}
               onSelectionChanged={onLeftSelectionChanged}
-              getRowId={(params) => params.data.id.toString()}
+              getRowId={(params: GridParams) => params.data.id.toString()}
             />
           </div>
         </div>
 
-        {/* 右邊表格 */}
+      {/* 右邊表格 */}
         <div>
           <h2 className='text-xl font-semibold mb-3'>已選取資料表格 ({rightTableData.length})</h2>
           <div className='ag-theme-alpine' style={{ height: 400, width: '100%' }}>
-            <AgGridReact
+            <AgGridReact<Person>
               ref={rightGridRef}
               rowData={rightTableData}
               columnDefs={rightColumnDefs}
@@ -139,7 +139,7 @@ const TwoTable = () => {
               suppressRowClickSelection={true}
               onSelectionChanged={onRightSelectionChanged}
               onGridReady={onRightGridReady}
-              getRowId={(params) => params.data.id.toString()}
+              getRowId={(params: GridParams) => params.data.id.toString()}
             />
           </div>
         </div>

@@ -12,7 +12,7 @@ export const DataTablePage: React.FC = () => {
     if (data.length === 0) {
       fetchData();
     }
-  }, []);
+  }, [data.length, fetchData]);
   
   return (
     <div className="min-h-screen bg-gray-50">
