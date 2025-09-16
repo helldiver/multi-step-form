@@ -1,4 +1,4 @@
-import { useMultiStepFormStore } from '@/store/multiStepForm'
+import { useMultiStepFormStore } from '@/stores/multiStepForm'
 
 export const StepIndicator: React.FC = () => {
   const { currentStep, steps, getStepProgress } = useMultiStepFormStore()

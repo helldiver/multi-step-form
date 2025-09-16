@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { DataTable } from './DataTable';
 import { DataTableToolbar } from './DataTableToolbar';
-import { useDataTableStore } from '@/store/dataTable';
+import { useDataTableStore } from '@/stores/dataTable';
 
 export const DataTablePage: React.FC = () => {
   const { fetchData, isLoading, error, data } = useDataTableStore();
@@ -16,7 +16,7 @@ export const DataTablePage: React.FC = () => {
   
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto p-8">
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-900">資料表格</h1>
           <p className="mt-2 text-gray-600">

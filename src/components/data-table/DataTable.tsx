@@ -7,7 +7,7 @@ import {
   GridOptions,
   SelectionChangedEvent
 } from 'ag-grid-community'
-import { useDataTableStore } from '@/store/dataTable'
+import { useDataTableStore } from '@/stores/dataTable'
 import { TableRowData } from '@/types/dataTable'
 
 // AG-Grid CSS

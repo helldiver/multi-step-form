@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useEffect } from 'react'
 import { useFormSync } from '@/hooks/useFormSync'
-import { useMultiStepFormStore } from '@/store/multiStepForm'
+import { useMultiStepFormStore } from '@/stores/multiStepForm'
 
 const step3Schema = z.object({
   features: z.array(z.string()).min(1, '請至少選擇一個功能'),

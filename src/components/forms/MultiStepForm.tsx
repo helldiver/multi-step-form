@@ -2,7 +2,7 @@ import { Step1 } from './steps/Step1'
 import { Step2 } from './steps/Step2'
 import { Step3 } from './steps/Step3'
 import { StepIndicator } from './StepIndicator'
-import { useMultiStepFormStore } from '@/store/multiStepForm'
+import { useMultiStepFormStore } from '@/stores/multiStepForm'
 
 export const MultiStepForm: React.FC = () => {
   const {

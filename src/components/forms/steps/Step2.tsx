@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useEffect } from 'react'
-import { useMultiStepFormStore } from '@/store/multiStepForm'
+import { useMultiStepFormStore } from '@/stores/multiStepForm'
 import { useFormSync } from '@/hooks/useFormSync'
 
 // 根據用戶類型創建不同的驗證 schema

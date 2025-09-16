@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react'
-import { useMultiStepFormStore } from '@/store/multiStepForm'
+import { useMultiStepFormStore } from '@/stores/multiStepForm'
 import { FormData } from '@/types/form'
 import { isEqual } from 'lodash'
 

@@ -2,7 +2,7 @@
 
 import { MultiStepForm } from '@/components/forms/MultiStepForm'
 import { useEffect } from 'react'
-import { useMultiStepFormStore } from '@/store/multiStepForm'
+import { useMultiStepFormStore } from '@/stores/multiStepForm'
 
 export default function FormPage() {
   const resetForm = useMultiStepFormStore((state) => state.resetForm)

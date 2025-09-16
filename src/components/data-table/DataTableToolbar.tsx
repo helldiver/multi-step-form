@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Plus, Trash2, RefreshCw } from 'lucide-react'
-import { useDataTableStore } from '@/store/dataTable'
+import { useDataTableStore } from '@/stores/dataTable'
 import { CreateRowModal } from './CreateRowModal'
 
 export const DataTableToolbar: React.FC = () => {
