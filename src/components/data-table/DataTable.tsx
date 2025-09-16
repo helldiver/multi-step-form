@@ -195,7 +195,7 @@ export const DataTable: React.FC<DataTableProps> = ({ height = '500px', classNam
         gridOptions={gridOptions}
         onSelectionChanged={onSelectionChanged}
         onGridReady={onGridReady}
-        loading={isLoading}
+        // loading={isLoading}
         suppressLoadingOverlay={!isLoading}
       />
     </div>
