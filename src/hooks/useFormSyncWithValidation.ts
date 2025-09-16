@@ -1,16 +1,17 @@
 import { useEffect } from 'react'
-import { FieldErrors } from 'react-hook-form'
+import { FieldErrors, FieldValues } from 'react-hook-form'
 import { useFormSync } from './useFormSync'
 import type { UseFormSyncOptions } from './useFormSync'
 
-interface UseFormSyncWithValidationOptions<T> extends UseFormSyncOptions<T> {
+interface UseFormSyncWithValidationOptions<T extends FieldValues> extends UseFormSyncOptions<T> {
   errors: FieldErrors<T>
   onSyncSuccess?: (data: T) => void
   onSyncError?: (errors: FieldErrors<T>) => void
   onValidationChange?: (isValid: boolean) => void
 }
 
-export const useFormSyncWithValidation = <T = any>({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const useFormSyncWithValidation = <T extends FieldValues = any>({
   errors,
   onSyncSuccess,
   onSyncError,
