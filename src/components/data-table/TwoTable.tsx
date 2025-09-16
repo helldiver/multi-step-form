@@ -3,7 +3,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import { ColDef, SelectionChangedEvent } from 'ag-grid-community'
-import type { RowNode } from 'ag-grid-community'
+import type { IRowNode } from 'ag-grid-community'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-alpine.css'
 
@@ -83,7 +83,7 @@ const TwoTable = () => {
   // 當選取狀態改變時，同步左邊表格的選取狀態
   useEffect(() => {
     if (leftGridRef.current?.api) {
-      leftGridRef.current.api.forEachNode((node: RowNode<Person>) => {
+      leftGridRef.current.api.forEachNode((node: IRowNode<Person>) => {
         const shouldBeSelected: boolean = selectedIds.has(node.data!.id)
         if (node.isSelected() !== shouldBeSelected) {
           node.setSelected(shouldBeSelected, false)

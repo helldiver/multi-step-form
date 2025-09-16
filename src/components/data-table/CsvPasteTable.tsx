@@ -3,7 +3,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useImperativeHandle, forwardRef } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import { ColDef, GridApi, GridReadyEvent, SelectionChangedEvent } from 'ag-grid-community'
-import { Trash2, Upload, Download, Copy } from 'lucide-react'
+import {
+  Trash2 as TrashIcon,
+  Upload as UploadIcon,
+  Download as DownloadIcon,
+  Copy as CopyIcon
+} from 'lucide-react'
 import {
   CsvRow,
   readCsvFile,
@@ -15,6 +20,7 @@ import {
 } from '@/utils/csvFileUtils'
 import type { ChangeEvent } from 'react'
 import { useCsvTableStore } from '@/stores/csvTableStore'
+import useNotification from '@/hooks/useNotification'
 
 // Import ag-Grid styles
 import 'ag-grid-community/styles/ag-grid.css'
@@ -68,21 +74,6 @@ const generateColumnDefs = (data: readonly CsvRow[]): ColDef[] => {
     }))
 
   return [checkboxColumn, ...dataColumns]
-}
-
-// 🎯 Hook：通知系統
-const useNotification = () => {
-  const showSuccess = useCallback((message: string) => {
-    // 可以替換為 toast 庫
-    alert(`✅ ${message}`)
-  }, [])
-
-  const showError = useCallback((message: string) => {
-    // 可以替換為 toast 庫
-    alert(`❌ ${message}`)
-  }, [])
-
-  return { showSuccess, showError }
 }
 
 const CsvPasteTable = forwardRef<CsvTableRef, CsvPasteTableProps>(function CsvPasteTable(
@@ -362,7 +353,7 @@ const CsvPasteTable = forwardRef<CsvTableRef, CsvPasteTableProps>(function CsvPa
             disabled={isUploading}
             className='flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors'
           >
-            <Upload size={16} />
+            <UploadIcon size={16} />
             {isUploading ? '上傳中...' : '上傳 CSV 文件'}
           </button>
 
@@ -370,7 +361,7 @@ const CsvPasteTable = forwardRef<CsvTableRef, CsvPasteTableProps>(function CsvPa
             onClick={handleCopyExample}
             className='flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors'
           >
-            <Copy size={16} />
+            <CopyIcon size={16} />
             複製示例 CSV
           </button>
 
@@ -378,7 +369,7 @@ const CsvPasteTable = forwardRef<CsvTableRef, CsvPasteTableProps>(function CsvPa
             onClick={handleDownloadExample}
             className='flex items-center gap-2 px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 transition-colors'
           >
-            <Download size={16} />
+            <DownloadIcon size={16} />
             下載示例文件
           </button>
 
@@ -387,7 +378,7 @@ const CsvPasteTable = forwardRef<CsvTableRef, CsvPasteTableProps>(function CsvPa
             disabled={getTotalCount() === 0}
             className='flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors'
           >
-            <Download size={16} />
+            <DownloadIcon size={16} />
             匯出 CSV
           </button>
 
@@ -396,7 +387,7 @@ const CsvPasteTable = forwardRef<CsvTableRef, CsvPasteTableProps>(function CsvPa
             disabled={getSelectedCount() === 0}
             className='flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors'
           >
-            <Trash2 size={16} />
+            <TrashIcon size={16} />
             刪除選中 ({getSelectedCount()})
           </button>
 
@@ -405,7 +396,7 @@ const CsvPasteTable = forwardRef<CsvTableRef, CsvPasteTableProps>(function CsvPa
             disabled={getTotalCount() === 0}
             className='flex items-center gap-2 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors'
           >
-            <Trash2 size={16} />
+            <TrashIcon size={16} />
             清空所有數據
           </button>
         </div>

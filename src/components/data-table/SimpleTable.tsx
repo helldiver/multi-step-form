@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useImperativeHandle, forwardRef } from 'react'
 import { AgGridReact } from 'ag-grid-react'
-import { useTableStore } from '@/stores/tableStore'
+import { useTableStore } from '@/stores/simpleTableStore'
 import type { Ref } from 'react'
 import type { ColDef, GridApi, GridReadyEvent, SelectionChangedEvent } from 'ag-grid-community'
 

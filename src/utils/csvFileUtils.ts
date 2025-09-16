@@ -1,4 +1,5 @@
 // CSV 文件工具函數 - Functional Programming 風格
+import { EXAMPLE_CSV_DATA } from '@/constants/table'
 
 // 🚀 純函數：數據類型定義
 export interface CsvRow extends Record<string, unknown> {
@@ -40,7 +41,7 @@ const parseCsvLine = (line: string): string[] => line.split(',').map((value) => 
 // 🎯 純函數：轉換數據類型
 const convertValue = (value: string): string | number => (value && !isNaN(Number(value)) ? Number(value) : value)
 
-// 🎯 純函數：創建數據行
+// 🎯 純函數：建立數據行
 const createDataRow =
   (headers: string[]) =>
   (values: string[], index: number): CsvRow | null => {
@@ -57,7 +58,7 @@ const createDataRow =
     return { ...row, id: Date.now() + Math.random() + index }
   }
 
-// 🎯 純函數：解析 CSV 文本
+// 🎯 純函數：解析 CSV 文字檔案
 export const parseCsvText = (csvText: string): CsvParseResult => {
   try {
     const lines = csvText
@@ -170,19 +171,6 @@ export const exportDataToCsv = (data: CsvRow[], filename: string = 'exported_dat
     return { success: false, error: `導出失敗：${(error as Error).message}` }
   }
 }
-
-// 🎯 常量：示例數據
-const EXAMPLE_CSV_DATA: readonly (readonly string[])[] = [
-  ['name', 'email', 'age', 'department', 'salary', 'joinDate'] as const,
-  ['John Doe', 'john@example.com', '30', 'Engineering', '75000', '2022-01-15'] as const,
-  ['Jane Smith', 'jane@example.com', '25', 'Design', '65000', '2022-03-20'] as const,
-  ['Bob Johnson', 'bob@example.com', '35', 'Marketing', '70000', '2021-11-10'] as const,
-  ['Alice Brown', 'alice@example.com', '28', 'Engineering', '72000', '2022-02-28'] as const,
-  ['Charlie Davis', 'charlie@example.com', '32', 'Sales', '68000', '2021-12-05'] as const,
-  ['Eva Wilson', 'eva@example.com', '29', 'Design', '66000', '2022-04-12'] as const,
-  ['Frank Miller', 'frank@example.com', '31', 'Engineering', '78000', '2021-10-20'] as const,
-  ['Grace Lee', 'grace@example.com', '26', 'Marketing', '64000', '2022-05-08'] as const,
-] as const
 
 // 🎯 純函數：生成示例 CSV 內容
 export const generateExampleCsvContent = (): string => EXAMPLE_CSV_DATA.map((row) => row.join(',')).join('\n')

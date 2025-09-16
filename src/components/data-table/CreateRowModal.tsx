@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { X } from 'lucide-react'
-import { useDataTableStore } from '@/stores/dataTable'
+import { useDataTableStore } from '@/stores/dataTableStore'
 import { CreateRowData } from '@/types/dataTable'
 
 const createRowSchema = z.object({

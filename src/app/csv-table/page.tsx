@@ -2,7 +2,12 @@
 
 import { useState, useCallback } from 'react'
 import CsvPasteTable from '@/components/data-table/CsvPasteTable'
-import { Download, BarChart3, FileText, Users } from 'lucide-react'
+import {
+  Download as DownloadIcon,
+  BarChart3 as BarChartIcon,
+  FileText as FileTextIcon,
+  Users as UsersIcon
+} from 'lucide-react'
 import { CsvRow, downloadExampleCsv } from '@/utils/csvFileUtils'
 
 // 🎯 純函數：計算統計信息
@@ -27,21 +32,21 @@ const getStatCards = (stats: TableStats) =>
       title: '總行數',
       value: stats.totalRows,
       color: 'text-green-600',
-      icon: FileText,
+      icon: FileTextIcon,
       bgColor: 'bg-green-50',
     },
     {
       title: '欄位數',
       value: stats.totalColumns,
       color: 'text-blue-600',
-      icon: BarChart3,
+      icon: BarChartIcon,
       bgColor: 'bg-blue-50',
     },
     {
       title: '最後更新',
       value: stats.lastUpdated,
       color: 'text-purple-600',
-      icon: Users,
+      icon: UsersIcon,
       bgColor: 'bg-purple-50',
       isTime: true,
     },
@@ -141,7 +146,7 @@ const CsvPasteExample = () => {
       {/* 快速開始區域 */}
       <div className='mb-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg'>
         <h3 className='font-semibold text-yellow-800 mb-3 flex items-center gap-2'>
-          <Download size={20} />
+          <DownloadIcon size={20} />
           快速開始測試
         </h3>
         <div className='flex flex-wrap gap-3'>
@@ -149,7 +154,7 @@ const CsvPasteExample = () => {
             onClick={handleDownloadExample}
             className='flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition-colors text-sm font-medium'
           >
-            <Download size={16} />
+            <DownloadIcon size={16} />
             下載示例 CSV 文件
           </button>
           <div className='text-sm text-yellow-700 flex items-center'>
@@ -172,7 +177,7 @@ const CsvPasteExample = () => {
       {stats.hasData && (
         <div className='mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200'>
           <h3 className='text-lg font-semibold text-green-800 mb-4 flex items-center gap-2'>
-            <BarChart3 size={20} />
+            <BarChartIcon size={20} />
             數據統計概覽
           </h3>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>

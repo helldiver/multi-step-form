@@ -4,7 +4,7 @@ import { useCallback, useRef } from 'react'
 import { ColDef } from 'ag-grid-community'
 import SimpleTable from '@/components/data-table/SimpleTable'
 import TableControls from '@/components/data-table/SimpleTableControls'
-import { useTableStore } from '@/stores/tableStore'
+import { useTableStore } from '@/stores/simpleTableStore'
 import type { DataTableRef } from '@/components/data-table/SimpleTable'
 
 interface ExampleData extends Record<string, unknown> {
@@ -19,7 +19,7 @@ interface ExampleData extends Record<string, unknown> {
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-alpine.css'
 
-const DataTableZustandExample = () => {
+const SimpleTablePage = () => {
   const tableRef = useRef<DataTableRef>(null)
 
   // 範例資料
@@ -92,4 +92,4 @@ const DataTableZustandExample = () => {
   )
 }
 
-export default DataTableZustandExample
+export default SimpleTablePage

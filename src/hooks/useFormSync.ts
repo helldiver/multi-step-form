@@ -3,6 +3,7 @@ import { useMultiStepFormStore } from '@/stores/multiStepForm'
 import { FormData } from '@/types/form'
 import { isEqual } from 'lodash'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface UseFormSyncOptions<T = any> {
   stepKey: keyof FormData
   stepId: number
@@ -18,6 +19,7 @@ export interface UseFormSyncReturn {
   forceSync: () => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useFormSync = <T = any>({
   stepKey,
   stepId,
@@ -40,7 +42,8 @@ export const useFormSync = <T = any>({
     if (!enabled) return
 
     isSyncingRef.current = true
-    updateFormData(stepKey, formData)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    updateFormData(stepKey, formData as any) // 強制轉型
     prevDataRef.current = formData
     lastSyncTimeRef.current = new Date()
     isSyncingRef.current = false

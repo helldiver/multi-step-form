@@ -1,7 +1,7 @@
 'use client'
 
 import { RefObject } from 'react'
-import { useTableStore } from '@/stores/tableStore'
+import { useTableStore } from '@/stores/simpleTableStore'
 import type { DataTableRef } from './SimpleTable'
 
 interface TableControlsProps {

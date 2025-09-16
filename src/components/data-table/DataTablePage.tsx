@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { DataTable } from './DataTable';
 import { DataTableToolbar } from './DataTableToolbar';
-import { useDataTableStore } from '@/stores/dataTable';
+import { useDataTableStore } from '@/stores/dataTableStore';
 
 export const DataTablePage: React.FC = () => {
   const { fetchData, isLoading, error, data } = useDataTableStore();
